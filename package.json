@@ -2,7 +2,7 @@
   "name": "archicore-vscode",
   "displayName": "ArchiCore",
   "description": "Security & architecture analysis for your codebase",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "ArchiCore-VSCode",
   "license": "MIT",
   "repository": {
