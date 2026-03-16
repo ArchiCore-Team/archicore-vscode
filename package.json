@@ -1,0 +1,98 @@
+{
+  "name": "archicore-vscode",
+  "displayName": "ArchiCore",
+  "description": "Security & architecture analysis for your codebase",
+  "version": "0.1.0",
+  "publisher": "ArchiCore",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArchiCore-Team/archicore-vscode"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Linters",
+    "Other"
+  ],
+  "icon": "assets/icon.png",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "archicore.analyze",
+        "title": "ArchiCore: Analyze Workspace",
+        "icon": "$(search)"
+      },
+      {
+        "command": "archicore.clear",
+        "title": "ArchiCore: Clear Results",
+        "icon": "$(clear-all)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "archicore-sidebar",
+          "title": "ArchiCore",
+          "icon": "$(shield)"
+        }
+      ]
+    },
+    "views": {
+      "archicore-sidebar": [
+        {
+          "id": "archicore-findings",
+          "name": "Findings",
+          "icon": "$(bug)",
+          "contextualTitle": "ArchiCore Findings"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "ArchiCore",
+      "properties": {
+        "archicore.cliPath": {
+          "type": "string",
+          "default": "archicore",
+          "description": "Path to the ArchiCore CLI executable."
+        },
+        "archicore.autoAnalyze": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically run analysis when the workspace is opened."
+        },
+        "archicore.failOnSeverity": {
+          "type": "string",
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ],
+          "default": "none",
+          "description": "Show a warning notification if findings at or above this severity are found."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "esbuild src/extension.ts --bundle --platform=node --external:vscode --outfile=dist/extension.js --sourcemap",
+    "watch": "esbuild src/extension.ts --bundle --platform=node --external:vscode --outfile=dist/extension.js --sourcemap --watch",
+    "package": "vsce package",
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2",
+    "esbuild": "^0.20",
+    "typescript": "^5"
+  }
+}
